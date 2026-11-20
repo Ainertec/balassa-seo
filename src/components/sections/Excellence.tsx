@@ -2,6 +2,7 @@ import { MetricCard } from './MetricCard';
 import { SectionHeading } from '../SectionHeading';
 import { DIFERENCIAIS, METRICAS } from '../../data/content';
 import { Check } from '../icons';
+import { asset } from '../../lib/assets';
 
 export function Excellence() {
   return (
@@ -19,7 +20,7 @@ export function Excellence() {
           <figure className="metric-banner">
             <img
               className="metric-banner__image"
-              src="/banner.webp"
+              src={asset('banner.webp')}
               alt="Balassa SEO & Growth"
               width={640}
               height={427}

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { NAV_LINKS, SITE } from '../data/content';
 import { useActiveSection } from '../hooks/useActiveSection';
 import { Download, Menu, Close } from './icons';
+import { asset } from '../lib/assets';
 
 const SECTION_IDS = ['inicio', 'servicos', 'metodo', 'excelencia', 'faq', 'contato'];
 
@@ -55,7 +56,7 @@ export function Header({ canInstall, onInstall, onNavigate }: HeaderProps) {
           }}
           aria-label={`${SITE.name} ${SITE.tagline} — início`}
         >
-          <img src="/logo.webp" alt="" width={44} height={44} className="brand__mark" />
+          <img src={asset('logo.webp')} alt="" width={44} height={44} className="brand__mark" />
           <span className="brand__text">
             <span className="brand__name">{SITE.name}</span>
             <span className="brand__tagline">{SITE.tagline}</span>

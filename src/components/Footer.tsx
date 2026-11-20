@@ -1,6 +1,7 @@
 import { NAV_LINKS, SITE } from '../data/content';
 import { LinkButton } from './LinkButton';
 import { ArrowUpRight, Mail, MapPin, Phone } from './icons';
+import { asset } from '../lib/assets';
 
 interface FooterProps {
   onNavigate: (id: string) => void;
@@ -13,7 +14,7 @@ export function Footer({ onNavigate }: FooterProps) {
     <footer className="site-footer">
       <div className="container site-footer__grid">
         <div className="site-footer__brand">
-          <img src="/logo.webp" alt="Balassa — SEO & Growth" width={64} height={64} loading="lazy" />
+          <img src={asset('logo.webp')} alt="Balassa — SEO & Growth" width={64} height={64} loading="lazy" />
           <p>
             Consultoria exclusiva de SEO para marcas que enxergam a visibilidade orgânica como
             ativo estratégico.

@@ -18,6 +18,7 @@ public/
   logo.webp                 # marca (ícone "B") — hero, header, footer, ícones da PWA
   banner.webp               # wordmark "Balassa / SEO & Growth" — vitrine da seção Excelência
   favicon.svg
+  .nojekyll                 # impede o Jekyll de filtrar arquivos no GitHub Pages
   icons/icon-192.png        # gerados por `npm run icons`
   icons/icon-512.png
   icons/icon-maskable-512.png
@@ -25,6 +26,8 @@ public/
   assets/og-image.jpg       # imagem de compartilhamento (Open Graph)
   manifest.webmanifest      # fallback estático (o build gera o manifest definitivo)
   robots.txt
+.github/workflows/
+  deploy-pages.yml          # build + deploy automático no GitHub Pages
 scripts/
   generate-icons.mjs        # logo/banner -> ícones da PWA + og-image
   deploy.mjs                # copia dist/ para o diretório de publicação
@@ -35,6 +38,7 @@ src/
   components/sections/      # Hero, Services, Method, Excellence, Faq, Contact, CtaBanner
   data/content.ts           # todo o conteúdo textual e dados de SEO/contato
   hooks/                    # useCountUp, useActiveSection, useInstallPrompt, useServiceWorker, useRevealAnimation
+  lib/assets.ts             # `asset()` — resolve arquivos de public/ com o `base` do Vite
   styles/                   # tokens, base, componentes, layout e seções
   types.ts
 legacy/index.html           # HTML original preservado como referência
@@ -92,19 +96,78 @@ horizontal (`scrollWidth` igual à largura da viewport).
 
 ## Deploy
 
-Deploy estático. Use o caminho base `/` na raiz do domínio ou defina `BASE_PATH` para publicar em subdiretório:
+Deploy estático. O Vite usa `/` como base (raiz do domínio) ou o valor de `BASE_PATH` (subdiretório).
+Todos os assets de `public/` são resolvidos com o helper `asset()` (`src/lib/assets.ts`), que lê
+`import.meta.env.BASE_URL` — por isso o mesmo build funciona tanto na raiz quanto em subpasta.
 
-```bash
-BASE_PATH=/minha-subpasta/ npm run build
+### GitHub Pages (automático)
+
+O workflow `.github/workflows/deploy-pages.yml` roda a cada push em `main`:
+
+1. `npm ci` + `npm run build` com `BASE_PATH=/<nome-do-repo>/`;
+2. publica `dist/` com `actions/deploy-pages`.
+
+Se existir um `public/CNAME` (domínio próprio), o workflow usa a raiz (`/`) automaticamente.
+
+Configuração única no repositório: **Settings → Pages → Source: GitHub Actions**.
+
+Site resultante: `https://<usuario>.github.io/<repo>/` (ou o domínio do CNAME).
+
+### Build manual com `BASE_PATH`
+
+A variável precisa ser definida **antes** do comando, respeitando a sintaxe de cada shell:
+
+```powershell
+# PowerShell (Windows)
+$env:BASE_PATH='/balassa-seo/'
+npm run build
+Remove-Item Env:BASE_PATH
 ```
 
-Em seguida publique o conteúdo de `dist/` (ou rode `npm run deploy` para espelhar em `site/`).
-Ao usar o segundo comando, `site/` é limpo e recriado com o novo build.
+```cmd
+:: CMD
+set BASE_PATH=/balassa-seo/&& npm run build
+```
+
+```bash
+# bash / zsh / macOS / Linux / Git Bash
+BASE_PATH=/balassa-seo/ npm run build
+```
+
+> `BASE_PATH=/balassa-seo/ npm run build` **não funciona** no PowerShell: ele não aceita atribuição
+> inline e tentaria executar `BASE_PATH` como programa.
+>
+> Se `npm run ...` falhar com *"npm.ps1 não pode ser carregado porque a execução de scripts foi
+> desabilitada"*, use `npm.cmd run build` ou libere os scripts uma vez:
+> `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`.
+
+### Testar o build em subpasta localmente
+
+O `vite preview` serve o `dist/` na raiz (`--base` muda apenas o fallback de SPA), então para
+simular o GitHub Pages publique o `dist/` sob um prefixo. Com o `npm run preview` rodando:
+
+```powershell
+# após um build com BASE_PATH=/balassa-seo/
+# o preview em http://localhost:4173/ já valida os caminhos /balassa-seo/...
+```
+
+Se preferir espelhar a estrutura real, copie `dist/` para `site/balassa-seo/` (`npm run deploy`
+com `DEPLOY_DIR`) e sirva `site/` com qualquer servidor estático.
+
+### Publicação manual (branch)
+
+```bash
+npm run build      # com BASE_PATH correto
+npm run deploy     # espelha dist/ em site/
+```
+
+Publique o conteúdo de `site/` no branch de sua preferência e aponte **Settings → Pages → Source:
+Deploy from a branch** para ele. `site/` é limpo e recriado a cada `npm run deploy`.
 
 ### Checklist antes de publicar
 
 1. `npm run icons` (se logo/banner mudarem).
 2. Atualizar domínio, telefone e e-mail em `index.html` e `src/data/content.ts`.
 3. `npm run build` e `npm run preview` para testar a PWA localmente.
-4. Publicar `dist/` (ou `site/` após `npm run deploy`).
+4. Publicar `dist/` (ou `site/` após `npm run deploy`), ou deixar o workflow fazer isso.
 

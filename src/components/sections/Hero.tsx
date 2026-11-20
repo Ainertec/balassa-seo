@@ -1,6 +1,7 @@
 import { LinkButton } from '../LinkButton';
 import { ArrowRight, Download, Spark } from '../icons';
 import { SITE } from '../../data/content';
+import { asset } from '../../lib/assets';
 
 interface HeroProps {
   canInstall: boolean;
@@ -67,7 +68,7 @@ export function Hero({ canInstall, onInstall }: HeroProps) {
         <figure className="hero__visual" data-reveal>
           <div className="hero__logocard">
             <img
-              src="/logo.webp"
+              src={asset('logo.webp')}
               alt={`Marca ${SITE.name} — SEO e Growth`}
               width={520}
               height={520}

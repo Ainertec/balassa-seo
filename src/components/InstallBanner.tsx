@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { asset } from '../lib/assets';
 
 interface InstallBannerProps {
   canInstall: boolean;
@@ -51,7 +52,7 @@ export function InstallBanner({ canInstall, isInstalled, onInstall }: InstallBan
     <aside className="install-banner" aria-label="Instalar aplicativo Balassa">
       <img
         className="install-banner__logo"
-        src="/icons/icon-192.png"
+        src={asset('icons/icon-192.png')}
         alt=""
         width={40}
         height={40}
