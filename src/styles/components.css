@@ -1,0 +1,366 @@
+/* ==========================================================================
+   Botões
+   ========================================================================== */
+.btn {
+  --btn-bg: transparent;
+  --btn-fg: var(--color-charcoal);
+  --btn-border: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  max-width: 100%;
+  padding: 0.85rem 1.6rem;
+  border: 1px solid var(--btn-border);
+  border-radius: var(--radius-pill);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font-family: var(--font-sans);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  line-height: 1.2;
+  text-align: center;
+  text-wrap: balance;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color var(--transition), color var(--transition),
+    border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+
+.btn > span {
+  min-width: 0;
+}
+
+.btn--sm,
+.btn--md {
+  white-space: nowrap;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn__icon,
+.btn__lead-icon {
+  display: inline-flex;
+  transition: transform var(--transition);
+}
+
+.btn:hover .btn__icon {
+  transform: translateX(3px);
+}
+
+.btn--lg {
+  padding: 1.05rem 2rem;
+  font-size: 0.78rem;
+}
+
+.btn--sm {
+  padding: 0.65rem 1.15rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+}
+
+.btn--block {
+  width: 100%;
+}
+
+/* Preto — ação principal (mesmo peso do botão charcoal original) */
+.btn--primary {
+  --btn-bg: var(--color-charcoal);
+  --btn-fg: var(--color-beige);
+  --btn-border: var(--color-charcoal);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn--primary:hover {
+  --btn-bg: var(--color-gold);
+  --btn-fg: #14110b;
+  --btn-border: var(--color-gold);
+  box-shadow: var(--shadow-gold);
+}
+
+/* Dourado — usado apenas em blocos escuros */
+.btn--gold {
+  --btn-bg: var(--color-gold);
+  --btn-fg: #14110b;
+  --btn-border: var(--color-gold);
+  box-shadow: var(--shadow-gold);
+}
+
+.btn--gold:hover {
+  --btn-bg: var(--color-gold-light);
+  --btn-border: var(--color-gold-light);
+}
+
+/* Sobre fundo escuro */
+.btn--ghost {
+  --btn-fg: var(--color-beige);
+  --btn-border: rgba(244, 241, 234, 0.32);
+  backdrop-filter: blur(6px);
+}
+
+.btn--ghost:hover {
+  --btn-border: var(--color-gold);
+  --btn-fg: var(--color-gold-light);
+}
+
+.btn--outline {
+  --btn-fg: var(--color-charcoal);
+  --btn-border: var(--color-beige-border);
+}
+
+.btn--outline:hover {
+  --btn-border: var(--color-gold);
+  --btn-fg: var(--color-gold-dark);
+}
+
+/* ==========================================================================
+   Eyebrow / subtítulos
+   ========================================================================== */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--color-gold-dark);
+}
+
+.eyebrow__line {
+  width: 32px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+.section-heading {
+  display: grid;
+  gap: 1rem;
+  max-width: 720px;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.section-heading--center {
+  margin-inline: auto;
+  justify-items: center;
+  text-align: center;
+}
+
+.section-heading--left {
+  justify-items: start;
+}
+
+.section-heading__title {
+  font-size: clamp(2rem, 4.2vw, 3.1rem);
+  font-weight: 600;
+  color: var(--color-charcoal);
+}
+
+.section-heading__description {
+  max-width: 600px;
+  color: var(--color-muted);
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.75;
+}
+
+.section-heading--dark .section-heading__title {
+  color: var(--color-beige);
+}
+
+.section-heading--dark .section-heading__description {
+  color: rgba(244, 241, 234, 0.68);
+}
+
+.section-heading--dark .eyebrow {
+  color: var(--color-gold-light);
+}
+
+/* ==========================================================================
+   Formulário
+   ========================================================================== */
+.field {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.field__label {
+  min-width: 0;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-gold-dark);
+}
+
+.field__control {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  padding: 0.95rem 1.1rem;
+  border: 1px solid var(--color-beige-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-beige-soft);
+  color: var(--color-charcoal);
+  font-size: 0.94rem;
+  font-weight: 400;
+  transition: border-color var(--transition), background-color var(--transition),
+    box-shadow var(--transition);
+}
+
+.field__control--textarea {
+  resize: vertical;
+  min-height: 96px;
+}
+
+.field__control::placeholder {
+  color: #a8a29a;
+}
+
+.field__control:hover {
+  border-color: #d5cbba;
+}
+
+.field__control:focus {
+  outline: none;
+  border-color: var(--color-gold);
+  background: #fff;
+  box-shadow: var(--focus-ring);
+}
+
+.field__control[aria-invalid='true'] {
+  border-color: var(--color-danger);
+}
+
+.field__error {
+  font-size: 0.78rem;
+  color: var(--color-danger);
+}
+
+/* ==========================================================================
+   Avisos (instalação / atualização)
+   ========================================================================== */
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translate(var(--slide-x, 0px), 18px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(var(--slide-x, 0px), 0);
+  }
+}
+
+.install-banner {
+  --slide-x: -50%;
+  position: fixed;
+  z-index: 90;
+  left: 50%;
+  bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  width: min(560px, calc(100vw - 2rem));
+  padding: 0.75rem 0.9rem 0.75rem 0.85rem;
+  border: 1px solid rgba(199, 154, 75, 0.35);
+  border-radius: var(--radius-md);
+  background: rgba(20, 20, 20, 0.94);
+  color: var(--color-beige);
+  box-shadow: 0 24px 60px -30px rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(12px);
+  animation: slide-up 420ms var(--ease-out) both;
+}
+
+.install-banner__logo {
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.install-banner__text {
+  display: grid;
+  gap: 0.1rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.install-banner__text strong {
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+.install-banner__text span {
+  font-size: 0.76rem;
+  font-weight: 300;
+  color: rgba(244, 241, 234, 0.72);
+}
+
+.install-banner__close {
+  border: 0;
+  background: transparent;
+  color: rgba(244, 241, 234, 0.6);
+  font-size: 1.35rem;
+  line-height: 1;
+  padding: 0.25rem 0.4rem;
+  cursor: pointer;
+  transition: color var(--transition);
+}
+
+.install-banner__close:hover {
+  color: var(--color-gold-light);
+}
+
+.update-toast {
+  position: fixed;
+  z-index: 95;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem 0.9rem 0.8rem 1.2rem;
+  border-radius: var(--radius-pill);
+  background: var(--color-charcoal);
+  color: var(--color-beige);
+  font-size: 0.82rem;
+  box-shadow: var(--shadow-md);
+  animation: slide-up 420ms var(--ease-out) both;
+}
+
+@media (max-width: 640px) {
+  .update-toast {
+    left: 1rem;
+    right: 1rem;
+    justify-content: space-between;
+  }
+
+  .install-banner__text span {
+    display: none;
+  }
+}
+
+
+.section-heading--dark .section-heading__description {
+  color: rgba(244, 241, 234, 0.68);
+}
+
+.section-heading--dark .eyebrow {
+  color: var(--color-gold-light);
+}

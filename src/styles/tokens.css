@@ -1,0 +1,57 @@
+/* ==========================================================================
+   Balassa — Design tokens
+   Paleta enxuta: preto (charcoal), branco, bege e dourado.
+   Mesmas proporções do HTML original: fundo bege predominante, blocos pretos
+   de contraste e dourado apenas como acento.
+   ========================================================================== */
+
+:root {
+  /* Superfícies / neutros */
+  --color-charcoal: #141414;
+  --color-charcoal-deep: #0b0b0b;
+  --color-graphite: #1f1f1f;
+  --color-beige: #f4f1ea;
+  --color-beige-soft: #faf8f4;
+  --color-beige-card: #fffdf9;
+  --color-beige-border: #e3dccf;
+  --color-beige-deep: #eae4d8;
+  --color-ink: #171512;
+  --color-muted: #6f6a61;
+  --color-muted-strong: #4b4741;
+
+  /* Dourado (acentos) */
+  --color-gold: #c79a4b;
+  --color-gold-light: #dfb974;
+  --color-gold-dark: #9c7836;
+  --color-gold-tint: rgba(199, 154, 75, 0.12);
+
+  /* Semânticos */
+  --color-success: #4a7150;
+  --color-danger: #a3423a;
+  --focus-ring: 0 0 0 3px rgba(199, 154, 75, 0.45);
+
+  /* Tipografia */
+  --font-display: 'Cormorant Garamond', 'Times New Roman', Georgia, serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Layout */
+  --container: 1200px;
+  --container-wide: 1300px;
+  --header-height: 76px;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-pill: 999px;
+
+  /* Sombras */
+  --shadow-sm: 0 1px 2px rgba(20, 20, 20, 0.06), 0 8px 24px -18px rgba(20, 20, 20, 0.25);
+  --shadow-md: 0 18px 50px -28px rgba(20, 20, 20, 0.35);
+  --shadow-gold: 0 18px 40px -22px rgba(199, 154, 75, 0.65);
+
+  /* Movimento */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --transition: 240ms var(--ease-out);
+
+  color-scheme: light;
+}

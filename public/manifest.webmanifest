@@ -1,0 +1,14 @@
+{
+  "name": "Balassa — SEO & Growth",
+  "short_name": "Balassa",
+  "description": "Consultoria de SEO de alto padrão, auditorias técnicas e crescimento orgânico para marcas que exigem autoridade digital.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0E0E0E",
+  "theme_color": "#0E0E0E",
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
