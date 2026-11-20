@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Arquivos de build e infraestrutura não precisam ser indexados
+Disallow: /legacy/
