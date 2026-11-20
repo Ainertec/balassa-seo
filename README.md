@@ -55,6 +55,7 @@ legacy/index.html           # HTML original preservado como referência
 | `npm run preview` | Serve o build em `http://localhost:4173` (necessário para testar a PWA) |
 | `npm run typecheck` | Apenas verificação de tipos |
 | `npm run deploy` | Copia `dist/` para `site/` (ou `DEPLOY_DIR`) |
+| `npm run publish:pages` | Publica `dist/` no branch `gh-pages` do `origin` (worktree temporário) |
 
 > A PWA (instalação e offline) só é registrada em produção: use `npm run build` + `npm run preview`.
 
@@ -154,7 +155,45 @@ simular o GitHub Pages publique o `dist/` sob um prefixo. Com o `npm run preview
 Se preferir espelhar a estrutura real, copie `dist/` para `site/balassa-seo/` (`npm run deploy`
 com `DEPLOY_DIR`) e sirva `site/` com qualquer servidor estático.
 
-### Publicação manual (branch)
+### Publicação manual no branch `gh-pages`
+
+Alternativa ao workflow, sem usar Actions. Basta um comando após o build:
+
+```powershell
+# PowerShell — build com o prefixo do repositório
+$env:BASE_PATH='/balassa-seo/'
+npm run build
+Remove-Item Env:BASE_PATH
+
+npm run publish:pages
+```
+
+`npm run publish:pages` (`scripts/publish-pages.mjs`):
+
+- cria um worktree temporário (`.pages-worktree/`, já no `.gitignore`);
+- usa o branch `gh-pages` existente, sincroniza com `origin/gh-pages` se ele só existir no
+  remoto, ou cria um branch órfão na primeira vez;
+- substitui todo o conteúdo por `dist/`, acrescenta `.nojekyll` e faz o commit;
+- envia para `origin` e remove o worktree (sem sujar seu `main`).
+
+Configuração única: **Settings → Pages → Source: Deploy from a branch → `gh-pages` / `/ (root)`**.
+
+Variáveis: `PAGES_BRANCH` (padrão `gh-pages`) e `PAGES_REMOTE` (padrão `origin`).
+
+### Alternativa: upload manual pela interface do GitHub
+
+1. Rode o build com `BASE_PATH=/<repo>/` (bloco acima).
+2. Abra o branch `gh-pages` no GitHub → **Add file → Upload files**.
+3. Arraste **todo o conteúdo** de `dist/` (a pasta `assets`, `icons`, `index.html`, `logo.webp`,
+   `manifest.webmanifest`, `sw.js`, `workbox-*.js`, `robots.txt` e `.nojekyll`) — não a pasta
+   `dist` em si.
+4. Commit em `gh-pages` e confira em **Settings → Pages**.
+
+Limitações do upload pela interface: arquivos ocultos como `.nojekyll` podem não ser aceitos pelo
+arrastar-e-soltar; nesse caso crie-o via **Add file → Create new file** com o nome `.nojekyll`
+(conteúdo vazio). O `npm run publish:pages` faz tudo isso automaticamente.
+
+### Publicação manual (qualquer branch)
 
 ```bash
 npm run build      # com BASE_PATH correto
